@@ -141,4 +141,4 @@ Este projeto está configurado para deploy automático no **GitHub Pages**.
 
 ---
 
-Feito com 💜 por [QuintilhiosTecnologia]
+Feito com 💜 por [Quintilhios_Tecnologia]
