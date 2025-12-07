@@ -1,0 +1,5 @@
+/* Estilos globais se necessário, mas o Tailwind via CDN no HTML cuida de tudo */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
