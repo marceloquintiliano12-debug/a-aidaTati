@@ -9,7 +9,7 @@ on:
   push:
     branches: ["main"] # Ou "master", verifique qual é a sua branch principal
 
-# Permissões para o GITHUB_TOKEN fazer o deploy
+# Permissões para o GITHUB_TOKEN fazer o deploy  
 permissions:
   contents: read
   pages: write
