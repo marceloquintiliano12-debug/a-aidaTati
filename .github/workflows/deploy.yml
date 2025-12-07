@@ -3,7 +3,7 @@ Marcelo Quintiliano <marceloquintiliano12@gmail.com>
 13:48 (há 0 minuto)
 para mim
 
-name: Deploy to GitHub Pages
+name:Deploy to GitHub Pages
 
 on:
   push:
