@@ -48,9 +48,10 @@ export const AVAILABLE_ADDONS: Addon[] = [
   { id: 'morango_fruta', title: 'Morango (Fruta)', price: 4.00 },
   { id: 'gran', title: 'Granola Crocante', price: 3.00 }, 
   { id: 'leite_po', title: 'Leite em Pó', price: 3.00 },
-  { id: 'banana', title: 'Banana', price: 2.00 },
-  { id: 'farofa', title: 'Farofa de Amendoim', price: 3.00 },
+  { id: 'banana', title: 'Banana', price: 3.00 },
+  { id: 'farofa', title: 'Farofa Crocante', price: 3.00 },
   { id: 'pacoca', title: 'Paçoca', price: 3.00 },
+   { id: 'pacoca', title: 'Amendoim Granulado', price: 3.00 },
   
   // Cremes Especiais
   { id: 'nutella', title: 'Nutella Original', price: 4.00 },
