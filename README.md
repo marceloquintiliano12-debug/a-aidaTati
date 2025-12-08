@@ -140,5 +140,5 @@ Este projeto está configurado para deploy automático no **GitHub Pages**.
 4.  O deploy começará automaticamente.
 Deploy Correto Finalizado
 ---
-
+Obrigado pela preferência!
 Feito com 💜 por [Quintilhios_Tecnologia]
