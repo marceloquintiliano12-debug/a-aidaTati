@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  // IMPORTANTE: O nome abaixo deve ser IGUAL ao nome do seu repositório no GitHub
+  // Define o caminho base exato para o GitHub Pages
   base: '/a-aidaTati/',
   build: {
     outDir: 'dist',

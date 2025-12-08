@@ -138,8 +138,7 @@ Este projeto está configurado para deploy automático no **GitHub Pages**.
 2.  Vá em **Settings > Pages**.
 3.  Em **Source**, selecione **GitHub Actions**.
 4.  O deploy começará automaticamente.
-Deploy Correto Finalizado 
-CORRECAO FINAL
+
 ---
-Obrigado pela preferência!Volte sempre.
-Feito com 💜 por [Quintilhios_Tecnologia]
+
+Feito com 💜 por [QuintilhiosTecnologia]
