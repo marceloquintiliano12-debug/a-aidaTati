@@ -260,6 +260,7 @@ function App() {
       {/* Footer */}
       <footer className="mt-12 text-center text-gray-400 text-sm py-8 border-t bg-gray-50">
         <p>© 2024 Açaí da Tati. Todos os direitos reservados.</p>
+        <p className="text-xs mt-1 text-gray-300">Versão 3.0 (Final)</p>
         <button 
           onClick={() => setIsAdminMode(true)}
           className="mt-4 flex items-center justify-center gap-1 mx-auto text-gray-300 hover:text-brand-600 text-xs transition"

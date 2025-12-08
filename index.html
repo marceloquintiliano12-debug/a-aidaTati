@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+    <!-- Update Trigger v3.0 -->
     <title>Açaí da Tati | Delivery</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind via CDN -->
+    <!-- Tailwind via CDN (Mantido para garantir o design) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -60,7 +60,7 @@
         }
       }
     </script>
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.1",
@@ -77,7 +77,8 @@
 </head>
   <body>
     <div id="root"></div>
-    <!-- O Vite transformará este caminho corretamente durante o build -->
-    <script type="module" src="/index.tsx"></script>
-  </body>
+    <!-- Script apontando para o arquivo local -->
+    <script type="module" src="./index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
 </html>
