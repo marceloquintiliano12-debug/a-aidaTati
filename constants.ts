@@ -52,6 +52,8 @@ export const AVAILABLE_ADDONS: Addon[] = [
   { id: 'farofa', title: 'Farofa Crocante', price: 3.00 },
   { id: 'pacoca', title: 'Paçoca', price: 3.00 },
    { id: 'pacoca', title: 'Amendoim Granulado', price: 3.00 },
+   { id: 'ovomaltine', title: 'Ovomaltine em Pó', price: 3.00 },
+  { id: 'leite_condensado', title: 'Leite Condensado', price: 3.00 },
   
   // Cremes Especiais
   { id: 'nutella', title: 'Nutella Original', price: 4.00 },
