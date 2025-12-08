@@ -1,16 +1,21 @@
 jobs:
-  # Job de Build (O seu primeiro job, 2 espaços de indentação)
-  build: 
-    # ... todo o conteúdo do build job ...
-    
-    # ... final do build job ...
-            with:
-              path: ./dist 
+  build: # 2 espaços (Primeiro Job)
+    runs-on: ubuntu-latest
+    steps:
+      # ... (Outros passos do build) ...
 
-# Linha 43: Aqui o comentário pode ficar solto, mas o 'deploy:' é o que importa!
+      - name: Upload artifact # 6 espaços
+        uses: actions/upload-pages-artifact@v3 # 8 espaços
+        with: # 8 espaços (CORRETO)
+          path: ./dist # 10 espaços
 
-  # Job de Deploy
-  deploy: # <--- ESTA CHAVE TEM DE ESTAR COM 2 ESPAÇOS DE INDENTAÇÃO (Alinhada com 'build:')
-    environment: # <--- 4 ESPAÇOS
-      name: github-pages # <--- 6 ESPAÇOS
-# ... e o resto do deploy job ...
+  deploy: # 2 espaços (Segundo Job, ALINHADO com 'build:')
+    environment: # 4 espaços
+      name: github-pages # 6 espaços
+      url: ${{ steps.deployment.outputs.page_url }} # 6 espaços
+    needs: build # 4 espaços
+    runs-on: ubuntu-latest # 4 espaços
+    steps: # 4 espaços
+      - name: Deploy to GitHub Pages # 6 espaços
+        id: deployment # 8 espaços
+        uses: actions/deploy-pages@v4 # 8 espaços
