@@ -1,53 +1,16 @@
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches: ["main"]
-
-# Permissões necessárias para o deploy
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Permite apenas um deploy concorrente
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
-  # Job de Build
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  # Job de Build (O seu primeiro job, 2 espaços de indentação)
+  build: 
+    # ... todo o conteúdo do build job ...
+    
+    # ... final do build job ...
+            with:
+              path: ./dist 
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: 'npm'
+# Linha 43: Aqui o comentário pode ficar solto, mas o 'deploy:' é o que importa!
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-  # Job de Deploy
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  # Job de Deploy
+  deploy: # <--- ESTA CHAVE TEM DE ESTAR COM 2 ESPAÇOS DE INDENTAÇÃO (Alinhada com 'build:')
+    environment: # <--- 4 ESPAÇOS
+      name: github-pages # <--- 6 ESPAÇOS
+# ... e o resto do deploy job ...
