@@ -51,7 +51,7 @@ export const AVAILABLE_ADDONS: Addon[] = [
   { id: 'banana', title: 'Banana', price: 3.00 },
   { id: 'farofa', title: 'Farofa Crocante', price: 3.00 },
   { id: 'pacoca', title: 'Paçoca', price: 3.00 },
-   { id: 'pacoca', title: 'Amendoim Granulado', price: 3.00 },
+   { id: 'Amendoim_gran', title: 'Amendoim Granulado', price: 3.00 },
    { id: 'ovomaltine', title: 'Ovomaltine em Pó', price: 3.00 },
   { id: 'leite_condensado', title: 'Leite Condensado', price: 3.00 },
   
