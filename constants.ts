@@ -10,7 +10,7 @@ export const USE_MOCK_BACKEND = false;
 
 // ====== PAYMENT ======
 // Link fixo do Mercado Pago (Bio/Profile Link)
-export const MERCADO_PAGO_LINK = "https://link.mercadopago.com.br/quintilhiostecnolog";
+export const MERCADO_PAGO_LINK = "https://link.mercadopago.com.br/acaidatati";
 
 // Valor da Taxa de Entrega (R$)
 export const DELIVERY_FEE = 2.00; 
