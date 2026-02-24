@@ -178,7 +178,7 @@ function App() {
               <div className="mb-6">
                 <h4 className="font-semibold text-gray-700 mb-3">Turbine seu Açaí</h4>
                 <div className="space-y-2">
-                  {AVAILABLE_ADDONS.map(addon => {
+                  {AVAILABLE_ADDONS.filter(a => !a.id.startsWith('potinho')).map(addon => {
                     const isSelected = tempAddons.some(a => a.id === addon.id);
                     return (
                       <label 
@@ -221,6 +221,35 @@ function App() {
                      Não
                    </button>
                  </div>
+              </div>
+
+              {/* Potinhos Section */}
+              <div className="mb-6">
+                <h4 className="font-semibold text-gray-700 mb-3">Potinhos de adicional separados</h4>
+                <div className="space-y-2">
+                  {AVAILABLE_ADDONS.filter(a => a.id.startsWith('potinho')).map(addon => {
+                    const isSelected = tempAddons.some(a => a.id === addon.id);
+                    return (
+                      <label 
+                        key={addon.id} 
+                        className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition ${isSelected ? 'border-brand-500 bg-brand-50' : 'border-gray-100 hover:bg-gray-50'}`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <input 
+                            type="checkbox" 
+                            className="w-5 h-5 text-brand-600 rounded focus:ring-brand-500"
+                            checked={isSelected}
+                            onChange={() => toggleAddon(addon)}
+                          />
+                          <span className="text-gray-700 font-medium">{addon.title}</span>
+                        </div>
+                        <span className="text-sm font-semibold text-brand-600">
+                          {addon.price === 0 ? 'Grátis' : `+ R$ ${addon.price.toFixed(2).replace('.', ',')}`}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="flex items-center justify-between pt-4 border-t border-gray-100">
