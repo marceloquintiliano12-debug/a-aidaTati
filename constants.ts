@@ -2,11 +2,18 @@ import { Product, Addon } from './types';
 
 // ====== CONFIGURATION ======
 export const SUPABASE_URL = "https://vtdmsvwuhvjpzjlvkmpc.supabase.co"; 
-export const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ0ZG1zdnd1aHZqcHpqbHZrbXBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg2MjMyMDcsImV4cCI6MjA3NDE5OTIwN30.uam-RvkA-9QalwtKhWJQ0ykdND2RPCMSISBR4PM-lMc"; 
+export const SUPABASE_KEY = "SUA_CHAVE_AQUI"; 
 
 export const USE_MOCK_BACKEND = false; 
+
+// ====== PAYMENT ======
 export const MERCADO_PAGO_LINK = "https://link.mercadopago.com.br/quintilhiostecnolog";
 export const DELIVERY_FEE = 2.00; 
+
+// Chave PIX da Loja (Necessário para o Build)
+export const STORE_PIX_KEY = "5517996248616"; 
+
+// ====== STORE CONTACT ======
 export const STORE_WHATSAPP = "5517996248616"; 
 export const STORE_PHONE_NUMBER_SMS = "+5517996248616"; 
 
