@@ -29,6 +29,7 @@ export const STORE_WHATSAPP = "5517996248616";
 export const STORE_PHONE_NUMBER_SMS = "+5517996248616"; 
 
 // ====== MOCK MENU DATA ======
+// Fallback apenas se o banco de dados estiver vazio ou inacessível
 export const MOCK_PRODUCTS: Product[] = [
   {
     id: 1,
@@ -56,6 +57,9 @@ export const AVAILABLE_ADDONS: Addon[] = [
   { id: 'banana', title: 'Banana', price: 4.00 },
   { id: 'farofa', title: 'Farofa de Amendoim', price: 3.00 },
   { id: 'pacoca', title: 'Paçoca', price: 3.00 },
+  { id: 'ovomaltine', title: 'Ovomaltine', price: 3.00 },
+  { id: 'amendoim_gran', title: 'Amendoim Granulado', price: 3.00 },
+  { id: 'leite_cond', title: 'Leite Condensado', price: 3.00 },
   
   // Cremes Especiais
   { id: 'nutella', title: 'Nutella Original', price: 6.00 },
@@ -76,4 +80,7 @@ export const AVAILABLE_ADDONS: Addon[] = [
   { id: 'potinho_creme_cookies', title: 'Potinho de Creme de Cookies', price: 5.00 },
   { id: 'potinho_creme_leitinho', title: 'Potinho de Creme de Leitinho', price: 5.00 },
   { id: 'potinho_creme_choco', title: 'Potinho de Creme de Chocowafer', price: 5.00 },
+  { id: 'potinho_ovomaltine', title: 'Potinho de Ovomaltine', price: 4.00 },
+  { id: 'potinho_amendoim_gran', title: 'Potinho de Amendoim Granulado', price: 4.00 },
+  { id: 'potinho_leite_cond', title: 'Potinho de Leite Condensado', price: 4.00 },
 ];
