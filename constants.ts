@@ -1,26 +1,34 @@
 import { Product, Addon } from './types';
 
 // ====== CONFIGURATION ======
+// Supabase Project Real
 export const SUPABASE_URL = "https://vtdmsvwuhvjpzjlvkmpc.supabase.co"; 
-export const SUPABASE_KEY = "SUA_CHAVE_AQUI"; 
+export const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ0ZG1zdnd1aHZqcHpqbHZrbXBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg2MjMyMDcsImV4cCI6MjA3NDE5OTIwN30.uam-RvkA-9QalwtKhWJQ0ykdND2RPCMSISBR4PM-lMc"; 
 
+// IMPORTANT: Set to false for Production Deployment
 export const USE_MOCK_BACKEND = false; 
 
 // ====== PAYMENT ======
+// Link fixo do Mercado Pago (Bio/Profile Link)
 export const MERCADO_PAGO_LINK = "https://link.mercadopago.com.br/quintilhiostecnolog";
+
+// Valor da Taxa de Entrega (R$)
 export const DELIVERY_FEE = 2.00; 
 
-// Chave PIX da Loja (Necessário para o Build)
-export const STORE_PIX_KEY = "5517996248616"; 
 // Chave PIX da Loja
 export const STORE_PIX_KEY = "5517996248616"; 
-// Adicione esta linha abaixo:
-export const STORE_PIX_QR_IMAGE = "";
+
+// URL da Imagem do QR Code PIX (Opcional)
+export const STORE_PIX_QR_IMAGE = ""; 
 
 // ====== STORE CONTACT ======
+// WhatsApp Number for customer interaction (with DDI 55 and DDD)
 export const STORE_WHATSAPP = "5517996248616"; 
+
+// SMS Notification Number (Store Employee/Manager)
 export const STORE_PHONE_NUMBER_SMS = "+5517996248616"; 
 
+// ====== MOCK MENU DATA ======
 export const MOCK_PRODUCTS: Product[] = [
   {
     id: 1,
