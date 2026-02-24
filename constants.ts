@@ -12,6 +12,10 @@ export const DELIVERY_FEE = 2.00;
 
 // Chave PIX da Loja (Necessário para o Build)
 export const STORE_PIX_KEY = "5517996248616"; 
+// Chave PIX da Loja
+export const STORE_PIX_KEY = "5517996248616"; 
+// Adicione esta linha abaixo:
+export const STORE_PIX_QR_IMAGE = "";
 
 // ====== STORE CONTACT ======
 export const STORE_WHATSAPP = "5517996248616"; 
