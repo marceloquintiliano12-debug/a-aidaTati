@@ -19,7 +19,7 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [tempAddons, setTempAddons] = useState<Addon[]>([]);
   const [tempQty, setTempQty] = useState(1);
-  const [tempSpoon, setTempSpoon] = useState(true);
+  const [tempSpoon, setTempSpoon] = useState<boolean | null>(null);
 
   // Fetch Products from Supabase on Mount
   useEffect(() => {
@@ -41,7 +41,7 @@ function App() {
     setSelectedProduct(product);
     setTempAddons([]);
     setTempQty(1);
-    setTempSpoon(true);
+    setTempSpoon(null);
   };
 
   const toggleAddon = (addon: Addon) => {
@@ -53,7 +53,7 @@ function App() {
   };
 
   const confirmAddToCart = () => {
-    if (!selectedProduct) return;
+    if (!selectedProduct || tempSpoon === null) return;
     const newItem: CartItem = {
       cartId: Math.random().toString(36).substr(2, 9),
       product: selectedProduct,
@@ -205,23 +205,22 @@ function App() {
 
               {/* Spoon/Utensils Option */}
               <div className="mb-6">
-                 <h4 className="font-semibold text-gray-700 mb-3">Utensílios</h4>
-                 <label 
-                    className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition ${tempSpoon ? 'border-brand-500 bg-brand-50' : 'border-gray-100 hover:bg-gray-50'}`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <input 
-                        type="checkbox" 
-                        className="w-5 h-5 text-brand-600 rounded focus:ring-brand-500"
-                        checked={tempSpoon}
-                        onChange={() => setTempSpoon(!tempSpoon)}
-                      />
-                      <div className="flex items-center gap-2">
-                        <Utensils size={18} className="text-gray-500" />
-                        <span className="text-gray-700 font-medium">Enviar colherzinha?</span>
-                      </div>
-                    </div>
-                  </label>
+                 <h4 className="font-semibold text-gray-700 mb-3">Enviar colherzinha? <span className="text-red-500">*</span></h4>
+                 <div className="grid grid-cols-2 gap-3">
+                   <button 
+                    onClick={() => setTempSpoon(true)}
+                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border font-bold transition ${tempSpoon === true ? 'border-brand-500 bg-brand-50 text-brand-700' : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50'}`}
+                   >
+                     <Utensils size={18} />
+                     Sim
+                   </button>
+                   <button 
+                    onClick={() => setTempSpoon(false)}
+                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border font-bold transition ${tempSpoon === false ? 'border-brand-500 bg-brand-50 text-brand-700' : 'border-gray-100 bg-white text-gray-500 hover:bg-gray-50'}`}
+                   >
+                     Não
+                   </button>
+                 </div>
               </div>
 
               <div className="flex items-center justify-between pt-4 border-t border-gray-100">
@@ -238,7 +237,8 @@ function App() {
                 </div>
                 <button 
                   onClick={confirmAddToCart}
-                  className="bg-brand-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-brand-200 hover:bg-brand-700 transition"
+                  disabled={tempSpoon === null}
+                  className={`px-8 py-3 rounded-xl font-bold shadow-lg transition ${tempSpoon === null ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' : 'bg-brand-600 text-white shadow-brand-200 hover:bg-brand-700'}`}
                 >
                   Adicionar • R$ {((selectedProduct.price + tempAddons.reduce((s, a) => s + a.price, 0)) * tempQty).toFixed(2).replace('.', ',')}
                 </button>
@@ -260,7 +260,6 @@ function App() {
       {/* Footer */}
       <footer className="mt-12 text-center text-gray-400 text-sm py-8 border-t bg-gray-50">
         <p>© 2024 Açaí da Tati. Todos os direitos reservados.</p>
-        <p className="text-xs mt-1 text-gray-300">Versão 3.0 (Final)</p>
         <button 
           onClick={() => setIsAdminMode(true)}
           className="mt-4 flex items-center justify-center gap-1 mx-auto text-gray-300 hover:text-brand-600 text-xs transition"
