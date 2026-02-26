@@ -15,7 +15,7 @@ export interface Product {
 }
 
 export interface CartItem {
-  cartId: string; // Unique ID for this instance in cart
+  cartId: string;
   product: Product;
   qty: number;
   selectedAddons: Addon[];
@@ -37,16 +37,16 @@ export interface Order {
   payment_method: 'pix' | 'card' | 'money';
   delivery_type: 'delivery' | 'pickup';
   delivery_fee: number;
-  address?: string; // Address required for delivery
-  change_for?: string; // For money payments
+  address?: string;
+  change_for?: string;
   status: 'pending' | 'paid' | 'cancelled';
 }
 
 export interface CheckoutResponse {
   success: boolean;
   orderId?: string;
-  pixQrCode?: string; // Base64 image or text code
-  pixCodeText?: string; // Copy/paste code
-  checkoutUrl?: string; // For credit card redirect
+  pixQrCode?: string;
+  pixCodeText?: string;
+  checkoutUrl?: string;
   error?: string;
 }
