@@ -23,6 +23,7 @@ export interface CartItem {
 
 export interface Order {
   customer_name: string;
+  customer_phone: string;
   items: {
     product_id: number;
     product_title: string;
