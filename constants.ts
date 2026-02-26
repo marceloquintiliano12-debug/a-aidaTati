@@ -16,10 +16,14 @@ export const MERCADO_PAGO_LINK = "https://link.mercadopago.com.br/quintilhiostec
 export const DELIVERY_FEE = 2.00; 
 
 // Chave PIX da Loja
-export const STORE_PIX_KEY = "5517996248616"; 
+export const STORE_PIX_KEY = "3eb2c9d4-de36-4bbb-9c23-64b8008c6ed7"; 
 
 // URL da Imagem do QR Code PIX (Opcional)
-export const STORE_PIX_QR_IMAGE = ""; 
+export const STORE_PIX_QR_IMAGE = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=3eb2c9d4-de36-4bbb-9c23-64b8008c6ed7"; 
+
+// Senha da Área da Loja
+export const ADMIN_LOGIN = "admin";
+export const ADMIN_PASSWORD = "12345*2026"; 
 
 // ====== STORE CONTACT ======
 // WhatsApp Number for customer interaction (with DDI 55 and DDD)
@@ -29,7 +33,6 @@ export const STORE_WHATSAPP = "5517996248616";
 export const STORE_PHONE_NUMBER_SMS = "+5517996248616"; 
 
 // ====== MOCK MENU DATA ======
-// Fallback apenas se o banco de dados estiver vazio ou inacessível
 export const MOCK_PRODUCTS: Product[] = [
   {
     id: 1,
@@ -50,7 +53,6 @@ export const MOCK_PRODUCTS: Product[] = [
 ];
 
 export const AVAILABLE_ADDONS: Addon[] = [
-  // Frutas e Crocantes 
   { id: 'morango_fruta', title: 'Morango (Fruta)', price: 5.00 },
   { id: 'gran', title: 'Granola Crocante', price: 3.00 }, 
   { id: 'leite_po', title: 'Leite em Pó', price: 3.00 },
@@ -60,17 +62,13 @@ export const AVAILABLE_ADDONS: Addon[] = [
   { id: 'ovomaltine', title: 'Ovomaltine', price: 3.00 },
   { id: 'amendoim_gran', title: 'Amendoim Granulado', price: 3.00 },
   { id: 'leite_cond', title: 'Leite Condensado', price: 3.00 },
-  
-  // Cremes Especiais
   { id: 'nutella', title: 'Nutella Original', price: 6.00 },
   { id: 'creme_morango', title: 'Creme de Morango', price: 4.00 },
   { id: 'creme_cookies', title: 'Creme de Cookies', price: 4.00 },
   { id: 'creme_leitinho', title: 'Creme de Leitinho', price: 4.00 },
   { id: 'creme_choco', title: 'Creme Chocowafer', price: 4.00 },
-
-  // Potinhos de Adicionais
   { id: 'potinho_morango', title: 'Potinho de Morango', price: 6.00 },
-  { id: 'potinho_granola', title: 'Potinho de Granola', price: 3.00 },
+  { id: 'potinho_granola', title: 'Potinho de Granola', price: 4.00 },
   { id: 'potinho_leite_po', title: 'Potinho de Leite em Pó', price: 4.00 },
   { id: 'potinho_banana', title: 'Potinho de Banana', price: 5.00 },
   { id: 'potinho_farofa', title: 'Potinho de Farofa', price: 4.00 },
