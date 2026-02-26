@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { supabase } from '../services/supabase';
 import { Order } from '../types';
-import { CheckCircle, Clock, MapPin, DollarSign, XCircle, ArrowLeft, Bell } from 'lucide-react';
+import { CheckCircle, Clock, MapPin, DollarSign, XCircle, ArrowLeft, Bell, MessageCircle } from 'lucide-react';
 
 // Som de notificação (base64 curto de um "ding")
 const ALERT_SOUND = "data:audio/mp3;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7cV96+539Cw+g05PSZEdtmZj6gD5QODghD3f3//+4xAAAAAAAAAIiaJ46b0//uQRAAAAAAnM+5kAAAEJnM+5kAAAE/d7IfnwAAAT93sh+fAAAA4gAAAB5gAAABAgAAAB1gAAABlQAAAD3gAAAB3gAAABfgAAAB7gAAABJQAAABqQAAABEwAAABcQAAABNgAAAB3wAAABEwAAABsQAAAC8AAAAAAAD/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAAf/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AA//7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAP/7kEQAAAAAAAZD3uZC3gAAGQ97mQt4AAA==";
@@ -114,9 +114,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onBack }) => {
                 <div className="p-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
                   <div>
                     <h3 className="font-bold text-lg text-gray-800">#{order.id.slice(0, 5).toUpperCase()}</h3>
-                    <div className="text-xs text-gray-500 flex items-center gap-1">
-                      <Clock size={12} /> 
-                      {new Date(order.created_at).toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'})}
+                    <div className="text-xs text-gray-500 flex flex-col gap-0.5">
+                      <div className="flex items-center gap-1">
+                        <Clock size={12} /> 
+                        {new Date(order.created_at).toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit', year: '2-digit'})} - {new Date(order.created_at).toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'})}
+                      </div>
                     </div>
                   </div>
                   <div className="text-right">
@@ -163,8 +165,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onBack }) => {
                     </div>
                   )}
                   
-                  <div className="text-sm text-gray-600 border-t pt-2">
-                    Cliente: <strong>{order.customer_name}</strong>
+                  <div className="text-sm text-gray-600 border-t pt-2 flex flex-col gap-1">
+                    <div>Cliente: <strong>{order.customer_name}</strong></div>
+                    {order.customer_phone && (
+                      <div className="flex items-center gap-1 text-brand-600 font-semibold">
+                        <MessageCircle size={14} />
+                        {order.customer_phone}
+                      </div>
+                    )}
                   </div>
                 </div>
 
