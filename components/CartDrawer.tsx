@@ -14,6 +14,7 @@ interface CartDrawerProps {
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, onRemove, onClear }) => {
   const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
   const [payMethod, setPayMethod] = useState<'pix' | 'card' | 'money'>('pix');
   const [deliveryType, setDeliveryType] = useState<'delivery' | 'pickup'>('delivery');
   const [address, setAddress] = useState('');
@@ -32,6 +33,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, 
 
   const total = productsSubtotal + deliveryCost;
 
+  const copyPixToClipboard = () => {
+    navigator.clipboard.writeText(STORE_PIX_KEY);
+    alert(`Chave PIX copiada: ${STORE_PIX_KEY}`);
+  };
+
   const handleCheckout = async () => {
     if (!customerName.trim()) {
       alert('Por favor, digite seu nome.');
@@ -47,6 +53,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, 
     
     const orderData = {
       customer_name: customerName,
+      customer_phone: customerPhone,
       total_amount: total,
       payment_method: payMethod,
       delivery_type: deliveryType,
@@ -83,14 +90,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, 
   };
 
   const copyTotalToClipboard = () => {
+    // CORREÇÃO: Usa vírgula para decimais. Ponto (.) é lido como milhar em apps BR (19.00 -> 1.900)
     const formattedValue = total.toFixed(2).replace('.', ',');
     navigator.clipboard.writeText(formattedValue);
     alert(`Valor copiado: R$ ${formattedValue}`);
-  };
-  
-  const copyPixKey = () => {
-    navigator.clipboard.writeText(STORE_PIX_KEY);
-    alert('Chave PIX copiada para a área de transferência!');
   };
 
   // Generate WhatsApp Message
@@ -99,6 +102,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, 
 
     let msg = `*🔔 NOVO PEDIDO #${result.orderId?.substring(0,8)}*\n`;
     msg += `👤 *Cliente:* ${customerName}\n`;
+    msg += `📞 *Telefone:* ${customerPhone}\n`;
     msg += `--------------------------------\n`;
     
     items.forEach(item => {
@@ -122,7 +126,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, 
     msg += `💲 *Pagamento:* ${methodLabel}\n`;
     
     if (payMethod !== 'money') {
-      msg += `✅ *Status:* Pago Online (${payMethod.toUpperCase()})\n`;
+      msg += `✅ *Status:* Pago Online via Mercado Pago\n`;
     } else {
       if (changeFor) msg += `💵 *Troco para:* ${changeFor}\n`;
       msg += `⏳ *Status:* Pagar na entrega\n`;
@@ -173,84 +177,105 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, 
               <h3 className="text-2xl font-bold text-gray-800">Pedido Criado!</h3>
               <p className="text-gray-500 text-sm mb-4">Código: <span className="font-mono bg-gray-100 px-2 py-1 rounded font-bold text-gray-700">{result.orderId}</span></p>
 
-              {/* === CARD PAYMENT FLOW === */}
-              {payMethod === 'card' && result.checkoutUrl && (
+              {/* ONLINE PAYMENT FLOW (LINK MERCADO PAGO OR PIX) */}
+              {payMethod !== 'money' && (
                 <div className="w-full space-y-5">
+                  
+                  {/* Total Display for Manual Entry */}
                   <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
                     <p className="text-sm text-gray-500 mb-1">Valor Total a Pagar</p>
                     <div className="flex items-center justify-center gap-3">
                       <span className="text-3xl font-extrabold text-brand-700">R$ {total.toFixed(2).replace('.', ',')}</span>
-                      <button onClick={copyTotalToClipboard} className="p-2 bg-white rounded-full shadow border hover:bg-gray-100 text-brand-600">
+                      <button 
+                        onClick={copyTotalToClipboard}
+                        className="p-2 bg-white rounded-full shadow border hover:bg-gray-100 text-brand-600 active:scale-90 transition-transform"
+                        title="Copiar valor"
+                      >
                         <Copy size={20} />
                       </button>
                     </div>
-                  </div>
-
-                  <div className="bg-blue-50 p-5 rounded-xl border border-blue-100 w-full shadow-sm">
-                    <p className="text-sm font-bold text-blue-900 mb-3 flex items-center justify-center gap-2">
-                      1. Pagar com Cartão
+                    <p className="text-xs text-brand-600 mt-2 font-medium">
+                      👆 Toque no ícone para copiar o valor
                     </p>
-                    <a 
-                      href={result.checkoutUrl} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="block w-full bg-[#009EE3] hover:bg-[#008CC9] text-white py-3 rounded-xl font-bold transition flex items-center justify-center gap-2 shadow-md"
-                    >
-                      <CreditCard size={20} /> Abrir Link Mercado Pago <ExternalLink size={16} />
-                    </a>
-                  </div>
-                </div>
-              )}
-
-              {/* === PIX PAYMENT FLOW (QR CODE & KEY) === */}
-              {payMethod === 'pix' && (
-                <div className="w-full space-y-5 animate-fadeIn">
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                    <p className="text-sm text-gray-500 mb-1">Total a Pagar</p>
-                    <span className="text-3xl font-extrabold text-brand-700">R$ {total.toFixed(2).replace('.', ',')}</span>
                   </div>
 
-                  <div className="bg-white border-2 border-brand-100 rounded-xl p-4 shadow-sm">
-                    <p className="text-sm font-bold text-brand-800 mb-3 uppercase tracking-wide">Escaneie o QR Code</p>
-                    <div className="flex justify-center mb-4 bg-white p-2 rounded">
-                      {/* Exibe o QR Code definido no constants.ts */}
-                      <img src={STORE_PIX_QR_IMAGE} alt="QR Code Pix" className="w-48 h-48 object-contain border border-gray-100 rounded-lg" />
-                    </div>
-                    
-                    <div className="relative bg-gray-50 p-3 rounded-lg border border-gray-200">
-                      <p className="text-xs text-gray-500 mb-2 text-left font-semibold">Chave Aleatória:</p>
-                      <div className="flex flex-col gap-2">
-                        <div className="w-full bg-white text-xs p-2 rounded border border-gray-300 font-mono text-gray-600 break-all text-center">
-                          {STORE_PIX_KEY}
+                  {/* PIX DIRECT PAYMENT */}
+                  {payMethod === 'pix' && (
+                    <div className="bg-purple-50 p-5 rounded-xl border border-purple-100 w-full shadow-sm">
+                      <p className="text-sm font-bold text-purple-900 mb-3 flex items-center justify-center gap-2">
+                        <QrCode size={18} /> Pagamento via PIX
+                      </p>
+                      
+                      {STORE_PIX_QR_IMAGE && (
+                        <div className="flex justify-center mb-4">
+                          <img 
+                            src={STORE_PIX_QR_IMAGE} 
+                            alt="QR Code PIX" 
+                            className="w-48 h-48 rounded-lg shadow-md border-4 border-white"
+                          />
                         </div>
-                        <button 
-                          onClick={copyPixKey}
-                          className="w-full bg-brand-600 text-white py-2 rounded font-bold hover:bg-brand-700 transition flex items-center justify-center gap-2 text-sm"
-                        >
-                          <Copy size={16} /> Copiar Chave
-                        </button>
+                      )}
+
+                      <div className="bg-white p-3 rounded-lg border border-purple-200 mb-3">
+                        <p className="text-[10px] text-gray-400 uppercase font-bold mb-1">Chave PIX</p>
+                        <div className="flex items-center justify-between gap-2">
+                          <code className="text-xs font-mono break-all text-purple-700">{STORE_PIX_KEY}</code>
+                          <button 
+                            onClick={copyPixToClipboard}
+                            className="p-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"
+                            title="Copiar Chave PIX"
+                          >
+                            <Copy size={16} />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="text-xs text-purple-700 px-2 text-left bg-purple-100/50 p-2 rounded">
+                        <p className="font-bold mb-1">Instruções:</p>
+                        <ul className="list-disc list-inside space-y-1">
+                          <li>Escaneie o QR Code ou copie a chave acima.</li>
+                          <li>Pague o valor exato de <strong>R$ {total.toFixed(2).replace('.', ',')}</strong>.</li>
+                          <li>Após pagar, confirme abaixo e envie o comprovante.</li>
+                        </ul>
                       </div>
                     </div>
-                  </div>
+                  )}
+
+                  {/* MERCADO PAGO OPTION (If Card or if result has URL) */}
+                  {(payMethod === 'card' || (payMethod === 'pix' && result.checkoutUrl)) && result.checkoutUrl && (
+                    <div className="bg-blue-50 p-5 rounded-xl border border-blue-100 w-full shadow-sm">
+                      <p className="text-sm font-bold text-blue-900 mb-3 flex items-center justify-center gap-2">
+                        {payMethod === 'card' ? 'Pagamento via Cartão' : 'Ou pague via Mercado Pago'}
+                      </p>
+                      <a 
+                        href={result.checkoutUrl} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="block w-full bg-[#009EE3] hover:bg-[#008CC9] text-white py-3 rounded-xl font-bold transition flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform active:scale-95"
+                      >
+                        <CreditCard size={20} /> Abrir Link Mercado Pago <ExternalLink size={16} />
+                      </a>
+                    </div>
+                  )}
+
+                  {/* STEP 2: USER CONFIRMATION */}
+                  {!paymentConfirmedByUser && (
+                     <div className="w-full py-4 border-t border-dashed border-gray-300">
+                        <p className="text-gray-600 text-sm mb-3">Já concluiu o pagamento lá no Mercado Pago?</p>
+                        <button 
+                          onClick={() => setPaymentConfirmedByUser(true)}
+                          className="w-full py-3 border-2 border-green-500 text-green-600 font-bold rounded-xl hover:bg-green-50 transition"
+                        >
+                          Sim, já paguei!
+                        </button>
+                     </div>
+                  )}
                 </div>
               )}
 
-              {/* === CONFIRMATION BUTTON (For Both Online Methods) === */}
-              {payMethod !== 'money' && !paymentConfirmedByUser && (
-                 <div className="w-full py-4 border-t border-dashed border-gray-300 mt-4 animate-fadeIn">
-                    <p className="text-gray-600 text-sm mb-3 font-medium">Já realizou o pagamento acima?</p>
-                    <button 
-                      onClick={() => setPaymentConfirmedByUser(true)}
-                      className="w-full py-3 border-2 border-green-500 text-green-600 font-bold rounded-xl hover:bg-green-50 transition"
-                    >
-                      Sim, já paguei!
-                    </button>
-                 </div>
-              )}
-
-              {/* WHATSAPP ACTION */}
+              {/* WHATSAPP ACTION (Only shows if Money OR User Confirmed Payment) */}
               {(payMethod === 'money' || paymentConfirmedByUser) && (
-                <div className="w-full bg-green-50 border border-green-200 p-5 rounded-xl shadow-sm animate-scaleIn mt-4">
+                <div className="w-full bg-green-50 border border-green-200 p-5 rounded-xl shadow-sm animate-fadeIn">
                   <p className="text-green-800 font-bold mb-1 text-lg">
                     {payMethod === 'money' ? '2. Finalizar Pedido' : '2. Enviar Comprovante'}
                   </p>
@@ -322,15 +347,27 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, 
                 <div className="mt-8 space-y-6">
                   
                   {/* Customer Info */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Seu Nome</label>
-                    <input 
-                      type="text" 
-                      placeholder="Ex: Neuza Maria"
-                      className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition"
-                      value={customerName}
-                      onChange={e => setCustomerName(e.target.value)}
-                    />
+                  <div className="grid grid-cols-1 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Seu Nome</label>
+                      <input 
+                        type="text" 
+                        placeholder="Ex: Neuza Maria"
+                        className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition"
+                        value={customerName}
+                        onChange={e => setCustomerName(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">WhatsApp / Telefone</label>
+                      <input 
+                        type="tel" 
+                        placeholder="(00) 00000-0000"
+                        className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition"
+                        value={customerPhone}
+                        onChange={e => setCustomerPhone(e.target.value)}
+                      />
+                    </div>
                   </div>
 
                   {/* Delivery Type */}
