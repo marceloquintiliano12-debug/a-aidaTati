@@ -9,6 +9,7 @@ export const processCheckout = async (order: Order): Promise<CheckoutResponse> =
   try {
     const payload = {
       customer_name: order.customer_name,
+      customer_phone: order.customer_phone,
       total_amount: order.total_amount,
       payment_method: order.payment_method,
       delivery_type: order.delivery_type,
