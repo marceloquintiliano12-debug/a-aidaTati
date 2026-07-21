@@ -16,7 +16,7 @@ export const MERCADO_PAGO_LINK = "https://link.mercadopago.com.br/quintilhiostec
 export const DELIVERY_FEE = 2.00; 
 
 // Chave PIX da Loja
-export const STORE_PIX_KEY = "3eb2c9d4-de36-4bbb-9c23-64b8008c6ed7"; 
+export const STORE_PIX_KEY = "70cde186-36c7-4213-b9e9-19565dc829c3"; 
 
 // URL da Imagem do QR Code PIX (Opcional)
 export const STORE_PIX_QR_IMAGE = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=3eb2c9d4-de36-4bbb-9c23-64b8008c6ed7"; 
@@ -54,10 +54,11 @@ export const MOCK_PRODUCTS: Product[] = [
 
 export const AVAILABLE_ADDONS: Addon[] = [
   { id: 'morango_fruta', title: 'Morango (Fruta)', price: 5.00 },
+   { id: 'uva', title: 'Uva', price: 5.00 },
   { id: 'gran', title: 'Granola Crocante', price: 3.00 }, 
   { id: 'leite_po', title: 'Leite em Pó', price: 3.00 },
   { id: 'banana', title: 'Banana', price: 4.00 },
-  { id: 'farofa', title: 'Farofa de Amendoim', price: 3.00 },
+  { id: 'farofa', title: 'Farofa Crocante', price: 3.00 },
   { id: 'pacoca', title: 'Paçoca', price: 3.00 },
   { id: 'ovomaltine', title: 'Ovomaltine', price: 3.00 },
   { id: 'amendoim_gran', title: 'Amendoim Granulado', price: 3.00 },
