@@ -72,6 +72,7 @@ export const AVAILABLE_ADDONS: Addon[] = [
   { id: 'potinho_granola', title: 'Potinho de Granola', price: 4.00 },
   { id: 'potinho_leite_po', title: 'Potinho de Leite em Pó', price: 4.00 },
   { id: 'potinho_banana', title: 'Potinho de Banana', price: 5.00 },
+   { id: 'potinho_uva', title: 'Potinho de uva', price: 5.00 },
   { id: 'potinho_farofa', title: 'Potinho de Farofa', price: 4.00 },
   { id: 'potinho_pacoca', title: 'Potinho de Paçoca', price: 4.00 },
   { id: 'potinho_nutella', title: 'Potinho de Nutella', price: 7.00 },
